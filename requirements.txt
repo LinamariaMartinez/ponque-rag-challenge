@@ -1,0 +1,14 @@
+fastapi
+uvicorn[standard]
+jinja2
+python-multipart
+httpx
+chromadb
+oci
+langchain-text-splitters
+pypdf
+python-docx
+openpyxl
+python-pptx
+beautifulsoup4
+reportlab
