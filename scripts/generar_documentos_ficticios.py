@@ -21,7 +21,6 @@ def generar_politica_vacaciones() -> None:
     ruta.parent.mkdir(parents=True, exist_ok=True)
     documento = Document()
     documento.add_heading("Política de Vacaciones — Ponqué Ponqué Calarcá", level=1)
-    documento.add_paragraph("Documento de ejemplo (datos ficticios) para el agente RAG.")
     documento.add_heading("Días disponibles", level=2)
     documento.add_paragraph(
         "Cada colaborador con más de un año de antigüedad tiene derecho a 15 días "
@@ -68,8 +67,8 @@ def generar_plan_campana() -> None:
     presentacion = Presentation()
 
     diapositiva = presentacion.slides.add_slide(presentacion.slide_layouts[0])
-    diapositiva.shapes.title.text = "Campaña Día de la Madre 2026 (ejemplo)"
-    diapositiva.placeholders[1].text = "Ponqué Ponqué Calarcá — plan de marketing ficticio"
+    diapositiva.shapes.title.text = "Campaña Día de la Madre 2026"
+    diapositiva.placeholders[1].text = "Ponqué Ponqué Calarcá — plan de marketing"
 
     layout_contenido = presentacion.slide_layouts[1]
 
@@ -77,7 +76,7 @@ def generar_plan_campana() -> None:
     diapositiva.shapes.title.text = "Objetivo"
     diapositiva.placeholders[1].text = (
         "Aumentar en 20% los pedidos de la semana del Día de la Madre frente al mes "
-        "anterior (meta ficticia de ejemplo)."
+        "anterior."
     )
 
     diapositiva = presentacion.slides.add_slide(layout_contenido)
@@ -90,7 +89,7 @@ def generar_plan_campana() -> None:
     diapositiva = presentacion.slides.add_slide(layout_contenido)
     diapositiva.shapes.title.text = "Presupuesto y cronograma"
     marco = diapositiva.placeholders[1].text_frame
-    marco.text = "Presupuesto: $1.500.000 COP (ficticio)"
+    marco.text = "Presupuesto: $1.500.000 COP"
     marco.add_paragraph().text = "Del 20 de abril al 10 de mayo de 2026"
 
     presentacion.save(str(ruta))
@@ -110,8 +109,7 @@ def generar_manual_despacho() -> None:
         lienzo.drawString(72, y, texto)
         y -= salto
 
-    linea("Manual de Empaque y Despacho — Ponqué Ponqué Calarcá", tamano=14)
-    linea("Documento de ejemplo (datos ficticios) para el agente RAG.", salto=28)
+    linea("Manual de Empaque y Despacho — Ponqué Ponqué Calarcá", salto=28, tamano=14)
     linea("1. Verificar el pedido contra la orden antes de empacar.")
     linea("2. Usar caja rígida para transportes de más de 30 minutos.")
     linea("3. Sellar la caja con cinta de seguridad con el logo de la marca.")

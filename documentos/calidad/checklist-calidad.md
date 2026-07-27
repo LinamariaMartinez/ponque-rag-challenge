@@ -1,6 +1,4 @@
-# Checklist de calidad antes de despacho (ejemplo)
-
-Documento de ejemplo (datos ficticios) para el agente RAG.
+# Checklist de calidad antes de despacho
 
 ## Revisión visual
 
