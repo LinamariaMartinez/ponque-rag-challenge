@@ -1,0 +1,320 @@
+/* Asistente interno Ponqué Ponqué Calarcá — estilos del chat.
+   Paleta de marca tomada de plataforma/app/web/static/style.css */
+
+:root {
+  --color-acento: #d98e4a;
+  --color-acento-oscuro: #b5651d;
+  --color-fondo: #fdf9f3;
+  --color-fondo-alterno: #faf6f0;
+  --color-texto: #3d2417;
+  --color-texto-suave: #5a3a26;
+  --color-exito: #2e7d32;
+  --color-exito-fondo: #e8f5e9;
+  --color-error: #c62828;
+  --color-error-fondo: #ffebee;
+
+  --fuente: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", sans-serif;
+
+  --espacio-1: 4px;
+  --espacio-2: 8px;
+  --espacio-3: 12px;
+  --espacio-4: 16px;
+  --espacio-5: 24px;
+  --espacio-6: 32px;
+
+  --radio-s: 8px;
+  --radio-m: 14px;
+  --radio-l: 20px;
+
+  --sombra-suave: 0 1px 2px rgba(61, 36, 23, 0.06), 0 2px 8px rgba(61, 36, 23, 0.06);
+  --sombra-media: 0 4px 16px rgba(61, 36, 23, 0.10);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--fuente);
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  -webkit-font-smoothing: antialiased;
+}
+
+.pagina {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-width: 720px;
+  margin: 0 auto;
+  background: var(--color-fondo);
+}
+
+/* Encabezado */
+
+.encabezado {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-4);
+  padding: var(--espacio-4) var(--espacio-5);
+  background: var(--color-fondo-alterno);
+  border-bottom: 1px solid rgba(181, 101, 29, 0.15);
+  flex-shrink: 0;
+}
+
+.encabezado__logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  border-radius: var(--radio-s);
+  flex-shrink: 0;
+}
+
+.encabezado__texto {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.encabezado__titulo {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-texto);
+  line-height: 1.3;
+}
+
+.encabezado__aviso {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--color-texto-suave);
+  opacity: 0.85;
+  line-height: 1.4;
+}
+
+/* Cuerpo del chat */
+
+.chat {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--espacio-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-4);
+  scroll-behavior: smooth;
+}
+
+.burbuja {
+  max-width: 82%;
+  padding: var(--espacio-3) var(--espacio-4);
+  border-radius: var(--radio-m);
+  box-shadow: var(--sombra-suave);
+  animation: aparecer 0.18s ease-out;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.burbuja__texto {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.burbuja--agente {
+  align-self: flex-start;
+  background: #ffffff;
+  color: var(--color-texto);
+  border: 1px solid rgba(181, 101, 29, 0.12);
+  border-bottom-left-radius: var(--radio-s);
+}
+
+.burbuja--usuario {
+  align-self: flex-end;
+  background: var(--color-acento);
+  color: #ffffff;
+  border-bottom-right-radius: var(--radio-s);
+}
+
+.burbuja--error {
+  background: var(--color-error-fondo);
+  color: var(--color-error);
+  border: 1px solid rgba(198, 40, 40, 0.2);
+}
+
+.burbuja--cargando .burbuja__texto {
+  color: var(--color-texto-suave);
+  font-style: italic;
+}
+
+.fuentes {
+  margin: var(--espacio-2) 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.fuentes__item {
+  font-size: 0.72rem;
+  color: var(--color-texto-suave);
+  opacity: 0.85;
+}
+
+.fuentes__item::before {
+  content: "Fuente: ";
+  font-weight: 600;
+}
+
+/* Pie: chips + formulario */
+
+.pie {
+  flex-shrink: 0;
+  padding: var(--espacio-4) var(--espacio-5) var(--espacio-5);
+  background: var(--color-fondo-alterno);
+  border-top: 1px solid rgba(181, 101, 29, 0.15);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-2);
+  margin-bottom: var(--espacio-3);
+}
+
+.chip {
+  font-family: var(--fuente);
+  font-size: 0.78rem;
+  color: var(--color-acento-oscuro);
+  background: #ffffff;
+  border: 1px solid var(--color-acento);
+  border-radius: var(--radio-l);
+  padding: 6px var(--espacio-3);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+
+.chip:hover {
+  background: var(--color-acento);
+  color: #ffffff;
+}
+
+.chip:active {
+  transform: scale(0.97);
+}
+
+.chip:focus-visible {
+  outline: 2px solid var(--color-acento-oscuro);
+  outline-offset: 2px;
+}
+
+.formulario {
+  display: flex;
+  gap: var(--espacio-2);
+}
+
+.formulario__input {
+  flex: 1;
+  font-family: var(--fuente);
+  font-size: 0.95rem;
+  color: var(--color-texto);
+  background: #ffffff;
+  border: 1px solid rgba(181, 101, 29, 0.3);
+  border-radius: var(--radio-m);
+  padding: var(--espacio-3) var(--espacio-4);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.formulario__input::placeholder {
+  color: var(--color-texto-suave);
+  opacity: 0.6;
+}
+
+.formulario__input:focus {
+  border-color: var(--color-acento);
+  box-shadow: 0 0 0 3px rgba(217, 142, 74, 0.2);
+}
+
+.formulario__boton {
+  font-family: var(--fuente);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: var(--color-acento-oscuro);
+  border: none;
+  border-radius: var(--radio-m);
+  padding: var(--espacio-3) var(--espacio-5);
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+  white-space: nowrap;
+}
+
+.formulario__boton:hover:not(:disabled) {
+  background: #9a5418;
+}
+
+.formulario__boton:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.formulario__boton:focus-visible {
+  outline: 2px solid var(--color-acento-oscuro);
+  outline-offset: 2px;
+}
+
+.formulario__boton:disabled {
+  background: #cbb59a;
+  cursor: not-allowed;
+}
+
+/* Utilidad de accesibilidad */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Responsive: pantallas angostas */
+
+@media (max-width: 480px) {
+  .encabezado {
+    padding: var(--espacio-3) var(--espacio-4);
+  }
+
+  .chat {
+    padding: var(--espacio-4);
+  }
+
+  .pie {
+    padding: var(--espacio-3) var(--espacio-4) var(--espacio-4);
+  }
+
+  .burbuja {
+    max-width: 90%;
+  }
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Asistente interno Ponqué Ponqué Calarcá</title>
+  <link rel="icon" href="/static/logo.png">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="pagina">
+    <header class="encabezado">
+      <img class="encabezado__logo" src="/static/logo.png" alt="Logo Ponqué Ponqué Calarcá">
+      <div class="encabezado__texto">
+        <h1 class="encabezado__titulo">Asistente interno Ponqué Ponqué Calarcá</h1>
+        <p class="encabezado__aviso">Proyecto de challenge (Oracle ONE + Alura) con datos de ejemplo — no refleja información real del negocio.</p>
+      </div>
+    </header>
+
+    <main class="chat" id="chat" aria-live="polite">
+      <div class="burbuja burbuja--agente">
+        <p class="burbuja__texto">¡Hola! Soy el asistente interno. Pregúntame sobre las políticas y documentos de ejemplo de la empresa.</p>
+      </div>
+    </main>
+
+    <footer class="pie">
+      <div class="chips" id="chips">
+        <button type="button" class="chip" data-pregunta="¿Cuál es la política de vacaciones?">¿Cuál es la política de vacaciones?</button>
+        <button type="button" class="chip" data-pregunta="¿Cuánto se presupuestó para publicidad?">¿Cuánto se presupuestó para publicidad?</button>
+        <button type="button" class="chip" data-pregunta="¿Cuáles son las rutas de entrega disponibles?">¿Cuáles son las rutas de entrega disponibles?</button>
+      </div>
+      <form class="formulario" id="formulario">
+        <label for="pregunta" class="sr-only">Escribe tu pregunta</label>
+        <input
+          type="text"
+          id="pregunta"
+          class="formulario__input"
+          placeholder="Escribe tu pregunta..."
+          autocomplete="off"
+          required
+        >
+        <button type="submit" class="formulario__boton" id="boton-enviar">Preguntar</button>
+      </form>
+    </footer>
+  </div>
+
+  <script src="/static/chat.js"></script>
+</body>
+</html>
