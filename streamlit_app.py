@@ -98,6 +98,19 @@ st.session_state.setdefault("mensajes", [])
 for mensaje in st.session_state["mensajes"]:
     _burbuja(mensaje["role"], mensaje["content"], mensaje.get("fuentes"))
 
+PREGUNTAS_SUGERIDAS = [
+    "¿Cuál es la política de vacaciones?",
+    "¿Cuánto se presupuestó para publicidad?",
+    "¿Cuáles son las rutas de entrega disponibles?",
+]
+
+cols_chips = st.columns(len(PREGUNTAS_SUGERIDAS))
+for col, sugerida in zip(cols_chips, PREGUNTAS_SUGERIDAS):
+    with col:
+        if st.button(sugerida, key=f"chip_{sugerida}", use_container_width=True):
+            st.session_state["pregunta_prellenada"] = sugerida
+            st.rerun()
+
 pregunta = st.chat_input("Escribe tu pregunta...")
 if pregunta_prellenada := st.session_state.pop("pregunta_prellenada", None):
     pregunta = pregunta or pregunta_prellenada
