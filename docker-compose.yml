@@ -1,0 +1,13 @@
+services:
+  agente:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - chroma_data:/app/data/chroma
+      - ~/.oci:/root/.oci:ro
+    env_file:
+      - .env
+
+volumes:
+  chroma_data:
