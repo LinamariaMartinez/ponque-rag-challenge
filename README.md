@@ -10,6 +10,10 @@ conversacional tipo RAG (Retrieval Augmented Generation).
 > Los documentos indexados (`documentos/`) son **ficticios**, creados solo para este
 > ejercicio. No contienen información real del negocio.
 
+## URL pública
+
+**[ponque-rag-challenge.streamlit.app](https://ponque-rag-challenge.streamlit.app)**
+
 ## Qué hace
 
 - Ingesta multi-formato: PDF, Word, Excel, PowerPoint, Markdown, CSV, JSON y HTML.
@@ -24,16 +28,50 @@ conversacional tipo RAG (Retrieval Augmented Generation).
 
 ## Arquitectura
 
-- **Backend:** FastAPI (`app/main.py`), endpoint `POST /chat`.
-- **Índice vectorial:** ChromaDB local persistido (`app/rag_index.py`).
-- **Motor de IA:** [Ollama](https://ollama.com) local para embeddings y generación de
-  respuesta (`app/local_llm.py`) — modelos abiertos (`llama3.2:3b` + `nomic-embed-text`)
-  corriendo en la propia máquina/VM, sin costo de inferencia.
+Hay dos formas de correr el agente, según dónde se despliegue:
+
+- **Streamlit Cloud (la URL pública de arriba):** interfaz en `streamlit_app.py`.
+  Embeddings 100% locales con [fastembed](https://github.com/qdrant/fastembed)
+  (`app/streamlit_rag.py`, modelo multilingüe, sin API ni costo) e índice en
+  memoria (recalculado al arrancar, sin base de datos persistida). El chat lo
+  genera la API gratuita de [Groq](https://groq.com) (`app/llm_groq.py`).
+- **FastAPI + Docker (pensado para una VM Compute Always Free de OCI):**
+  endpoint `POST /chat` (`app/main.py`), índice vectorial ChromaDB persistido
+  en disco (`app/rag_index.py`), y [Ollama](https://ollama.com) local para
+  embeddings y generación de respuesta (`app/local_llm.py`) — modelos abiertos
+  (`llama3.2:3b` + `nomic-embed-text`) corriendo en la propia VM, sin costo de
+  inferencia. Ver "Despliegue en OCI" más abajo.
+
+En ambos casos:
+
 - **Ingesta:** un cargador por formato (`ingesta/cargadores.py`) + troceo con
   `langchain-text-splitters` (`ingesta/chunking.py`).
-- **Interfaz:** página de chat de una sola vista (`app/templates/index.html`).
 
-## Cómo correr en local
+## Cómo correr en local (Streamlit + Groq)
+
+```bash
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+echo 'GROQ_API_KEY=tu-api-key-de-console.groq.com' >> .env
+streamlit run streamlit_app.py
+```
+
+Abre la URL que imprime Streamlit (por defecto `http://localhost:8501`).
+
+## Despliegue en Streamlit Community Cloud
+
+1. Sube el repo a GitHub (ya está público).
+2. Entra a [share.streamlit.io](https://share.streamlit.io) → **Create app** →
+   **Deploy a public app from GitHub**.
+3. Repository: tu repo · Branch: `main` · Main file path: `streamlit_app.py`.
+4. En **Advanced settings → Secrets**, agrega:
+   ```
+   GROQ_API_KEY = "tu-api-key"
+   ```
+5. **Deploy**. La primera vez tarda un poco más porque `fastembed` descarga el
+   modelo de embeddings.
+
+## Cómo correr en local (FastAPI + Ollama, alternativa para OCI)
 
 ```bash
 brew install ollama          # o https://ollama.com/download
@@ -56,7 +94,12 @@ Abre `http://localhost:8000`.
 python -m unittest discover tests
 ```
 
-## Despliegue en OCI
+## Despliegue en OCI (alternativa)
+
+> La URL pública del challenge corre en Streamlit Cloud (ver arriba). Esta
+> sección queda documentada como ruta alternativa de despliegue —el código
+> funciona— pero el tier Always Free de OCI para instancias ARM Ampere suele
+> tener problemas de disponibilidad ("Out of host capacity").
 
 Esta sección describe cómo llevar el contenedor del agente RAG a una VM Compute Always Free en Oracle Cloud. Asume que ya tienes una instancia Ubuntu (ARM Ampere) creada y accesible por SSH.
 
@@ -152,10 +195,18 @@ También puedes abrir en tu navegador la URL `http://<IP-publica-de-la-VM>:8000`
 
 ## Evidencia
 
+App en Streamlit Cloud (la desplegada en la URL pública):
+
+![Panel de documentos por área en la app de Streamlit](docs/evidencia/streamlit-panel-documentos.png)
+
+![Chat respondiendo con burbujas y citando las fuentes](docs/evidencia/streamlit-chat.png)
+
+Interfaz FastAPI (versión local/alternativa para OCI):
+
 ![Chat del asistente respondiendo una pregunta](docs/evidencia/captura.png)
 
 ![Vista previa de un documento en modal, con panel lateral por área](docs/evidencia/modal-documento.png)
 
 ## Stack
 
-FastAPI · ChromaDB · Ollama · Docker · OCI Compute (Always Free)
+Streamlit · Groq · fastembed · FastAPI · ChromaDB · Ollama · Docker · OCI Compute (Always Free)
