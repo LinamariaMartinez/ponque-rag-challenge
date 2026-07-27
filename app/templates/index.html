@@ -17,11 +17,18 @@
       </div>
     </header>
 
-    <main class="chat" id="chat" aria-live="polite">
-      <div class="burbuja burbuja--agente">
-        <p class="burbuja__texto">¡Hola! Soy el asistente interno. Pregúntame sobre las políticas y documentos de ejemplo de la empresa.</p>
-      </div>
-    </main>
+    <div class="cuerpo">
+      <aside class="barra-lateral" aria-label="Documentos disponibles">
+        <h2 class="barra-lateral__titulo">Documentos</h2>
+        <div id="areas" class="areas"></div>
+      </aside>
+
+      <main class="chat" id="chat" aria-live="polite">
+        <div class="burbuja burbuja--agente">
+          <p class="burbuja__texto">¡Hola! Soy el asistente interno. Pregúntame sobre las políticas y documentos de ejemplo de la empresa.</p>
+        </div>
+      </main>
+    </div>
 
     <footer class="pie">
       <div class="chips" id="chips">
@@ -44,6 +51,17 @@
     </footer>
   </div>
 
+  <div class="modal-vista-previa" id="modal-vista-previa" hidden>
+    <div class="modal-vista-previa__contenido">
+      <button type="button" class="modal-vista-previa__cerrar" id="cerrar-vista-previa" aria-label="Cerrar vista previa">×</button>
+      <h2 class="modal-vista-previa__titulo" id="titulo-vista-previa"></h2>
+      <div class="modal-vista-previa__cuerpo" id="cuerpo-vista-previa"></div>
+      <p class="modal-vista-previa__aviso">Documento de ejemplo — datos ficticios del challenge.</p>
+      <button type="button" class="modal-vista-previa__preguntar" id="preguntar-sobre-documento">Preguntar sobre este documento</button>
+    </div>
+  </div>
+
   <script src="/static/chat.js"></script>
+  <script src="/static/documentos.js"></script>
 </body>
 </html>
