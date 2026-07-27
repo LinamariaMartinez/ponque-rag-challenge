@@ -1,8 +1,11 @@
 # Asistente interno Ponqué Ponqué Calarcá (RAG) — Challenge Oracle ONE
 
-Agente conversacional tipo RAG (Retrieval Augmented Generation) que responde preguntas sobre
-documentos internos de Ponqué Ponqué Calarcá. Construido para el challenge del bootcamp
-Oracle ONE (Alura).
+**Ponqué Ponqué Calarcá** es la distribuidora exclusiva de la marca de tortas artesanales
+**Ponqué Ponqué**. El negocio está en etapa de lanzamiento y vende a gimnasios, cafés y consumidores finales. 
+Esterepositorio es el agente de inteligencia artificial interno del negocio: responde preguntas
+de los colaboradores sobre sus propios documentos (políticas, procesos, finanzas, etc.) y es
+el entregable del challenge del bootcamp Oracle ONE (Alura), construido como un agente
+conversacional tipo RAG (Retrieval Augmented Generation).
 
 > Los documentos indexados (`documentos/`) son **ficticios**, creados solo para este
 > ejercicio. No contienen información real del negocio.
